@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buat Kamu🥳🎉</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('gambarnya.jpg') no-repeat center center/cover;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      animation: dropDown 1s ease-out;
+    }
+
+    input[type="text"], button {
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: dropDown 1s ease-out forwards, bounce 1s ease-in-out infinite;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      outline: none;
+      width: 80%;
+      max-width: 350px;
+      font-size: 1rem;
+      margin-bottom: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      animation-delay: 0.2s;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      animation-delay: 0.4s;
+      transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #greeting {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      background: rgba(0, 0, 0, 0.5); /* Transparan hitam */
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      display: inline-block;
+      color: #fff;
+      white-space: pre-wrap;
+      overflow: hidden;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    @keyframes dropDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px); /* Naik sedikit */
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="nameForm">
+      <input type="text" id="nameInput" placeholder="Masukkan nama Anda" required>
+      <button type="submit">Lanjut</button>
+    </form>
+    <div id="message" class="hidden">
+      <p id="greeting"></p>
+    </div>
+  </div>
+
+  <!-- Audio element for music -->
+  <audio id="backgroundMusic" src="musiknya2.mp3" preload="auto"></audio>
+
+  <script>
+    const form = document.getElementById('nameForm');
+    const nameInput = document.getElementById('nameInput');
+    const messageDiv = document.getElementById('message');
+    const greeting = document.getElementById('greeting');
+    const backgroundMusic = document.getElementById('backgroundMusic');  // Audio element
+
+    function typeWriter(text, element, speed = 50) {
+      let i = 0;
+      element.textContent = '';
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text[i];
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, speed);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      if (name) {
+        // Play the background music when the button is clicked
+        backgroundMusic.play();
+        
+        const fullMessage = `Happy New Year 🥳 ${name}, semoga apa yang kamu impikan cepat terwujud!`;
+        form.classList.add('hidden');
+        messageDiv.classList.remove('hidden');
+        typeWriter(fullMessage, greeting, 200); // Kecepatan 200ms per karakter
+      }
+    });
+  </script>
+</body>
+</html>
